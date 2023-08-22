@@ -1,0 +1,29 @@
+server:
+  port: 8989
+  servlet:
+    context-path: /d3
+logging:
+  pattern:
+    dateformat: yyyy-MM-dd HH:mm:ss
+
+# 这里是tom配置类
+tom:
+  name: 我是tom
+  age: 13
+# pig配置类
+pig:
+  name: 他是pig
+  age: 1
+sheep:
+  id: 1
+  name: 我是sheep
+  age: 44
+spring:
+  redis:
+    cluster:
+      nodes: 47.97.63.174:6381,47.97.63.174:6382,47.97.63.174:6383,47.97.63.174:6384,47.97.63.174:6385,47.97.63.174:6386
+  # 集群只使用0
+#    database: 0
+#    port: 6381
+#    host: 47.97.63.174
+#    username: root

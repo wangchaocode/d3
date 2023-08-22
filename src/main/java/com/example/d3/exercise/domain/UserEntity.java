@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * @author lfy
@@ -22,4 +23,7 @@ public class UserEntity implements Serializable {
     private String username;
     private String passwd;
     private Map<String,String> remarkMap=new HashMap<>();
+
+    public UserEntity(UUID randomUUID, UUID randomUUID1, HashMap remarkMap) {
+    }
 }

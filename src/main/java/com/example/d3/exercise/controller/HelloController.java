@@ -18,12 +18,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.thymeleaf.util.StringUtils;
+import redis.clients.jedis.JedisCluster;
 import sun.rmi.log.LogInputStream;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * @author wangchao
@@ -47,7 +49,7 @@ public class HelloController {
     @Autowired
     EventSend eventSend;
     @Autowired
-    RedisTemplate redisTemplate;
+    JedisCluster jedisCluster;
     @GetMapping("h")
     public String getInfos(){
         try {
@@ -75,16 +77,23 @@ public class HelloController {
         h.put("user",userEntity);
       return h;
     }
-    @GetMapping("getRedis")
-    public Map getRedis(@RequestBody  UserEntity userEntity) {
-        Map map=new HashMap();
 
-        map.put("redis",redisTemplate.getClientList());
-        int i=0;
-        for(RedisClientInfo ri: (List<RedisClientInfo>)redisTemplate.getClientList()){
-            map.put(i++,ri.toString());
-        }
-        map.put(userEntity.getUsername(),redisTemplate.opsForValue().get(userEntity.getUsername()));
+    @GetMapping("randomPutJedis")
+    public void randomPutJedis() {
+        String s=UUID.randomUUID().toString();
+        LoginSuccessEvent loginSuccessEvent=new LoginSuccessEvent(
+                new UserEntity(s,s,new HashMap())
+        );
+        eventSend.sentEvent(loginSuccessEvent);
+        log.info("randomPutJedis-------------over");
+        jedisCluster.set(s,s);
+    }
+
+
+    @GetMapping("getRedis")
+    public Map getRedis(String key) {
+        Map map=new HashMap();
+        map.put("jedisCluster:"+key,StringUtils.isEmpty(key)?jedisCluster.get("*"):jedisCluster.get(key));
         return map;
     }
 }

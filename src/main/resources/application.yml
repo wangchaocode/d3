@@ -5,6 +5,13 @@ server:
 logging:
   pattern:
     dateformat: yyyy-MM-dd HH:mm:ss
+  group:
+    exerciseDebug: com.example.d3.exercise
+    principleInfo: com.example.d3.principle
+  level:
+    exerciseDebug: debug
+    principleInfo: info
+    sql: debug
 
 # 这里是tom配置类
 tom:

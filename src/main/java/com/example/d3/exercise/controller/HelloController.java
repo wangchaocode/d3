@@ -1,6 +1,5 @@
 package com.example.d3.exercise.controller;
 
-import com.example.d3.exercise.config.IntergrateConfig;
 import com.example.d3.exercise.config.domain.Pig;
 import com.example.d3.exercise.config.domain.Sheep;
 import com.example.d3.exercise.config.domain.Tom;
@@ -9,21 +8,14 @@ import com.example.d3.exercise.service.IRunQuotaService;
 import com.example.d3.exercise.service.eventpush.EventSend;
 import com.example.d3.exercise.service.eventpush.LoginSuccessEvent;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.types.RedisClientInfo;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.thymeleaf.util.StringUtils;
 import redis.clients.jedis.JedisCluster;
-import sun.rmi.log.LogInputStream;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 

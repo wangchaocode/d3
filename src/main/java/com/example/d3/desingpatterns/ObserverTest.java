@@ -90,7 +90,7 @@ class ObserverTeacher implements Observer{
 
     @Override
     public void update(Books books) {
-        System.out.println("接到通知，书籍变更："+books.toString());
+        System.out.println("当前书籍："+this.book+"~接到通知，书籍变更："+books.toString());
         this.book=books;
     }
 

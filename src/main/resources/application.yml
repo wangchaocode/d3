@@ -27,6 +27,11 @@ sheep:
   age: 44
 #
 spring:
+  datasource:
+    url: jdbc:mysql://47.97.63.174:3306/wordpr
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: wangCh788@990
   redis:
    cluster:
     nodes: 47.97.63.174:6381,47.97.63.174:6382,47.97.63.174:6383,47.97.63.174:6384,47.97.63.174:6385,47.97.63.174:6386
@@ -38,9 +43,10 @@ spring:
         max-active: 20
         max-idle: 0
         max-wait: -1
-  # 集群只使用0
-#    database: 0
-#    port: 6381
-#    host: 47.97.63.174
 
-#    username: root
+#指定mapper映射文件位置
+mybatis:
+  mapper-locations: classpath:/mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.d3.lock.synctest.mysql.mapper.UserMapper">
+
+    <update id="updateUser" parameterType="com.example.d3.exercise.config.domain.User"
+        >
+        update user set name=#{name},age=#{age} where id=#{id}
+    </update>
+
+    <insert id="insertUser2"  parameterType="com.example.d3.exercise.config.domain.User">
+        insert into user(name,age) values(#{name},#{age})
+    </insert>
+    <select id="selectUser" resultType="com.example.d3.exercise.config.domain.User">
+        select * from user where id =1
+    </select>
+</mapper>

@@ -1,11 +1,9 @@
 package com.example.d3.exercise.controller;
 
 import com.example.d3.exercise.config.domain.User;
-import com.example.d3.lock.synctest.SyncClass;
-import com.example.d3.lock.synctest.SynchronizedExample;
 import com.example.d3.lock.synctest.mysql.MyJdbcService;
-import com.example.d3.lock.synctest.mysql.User2Service;
-import com.example.d3.lock.synctest.mysql.UserService;
+import com.example.d3.lock.synctest.mysql.UserSelectService;
+import com.example.d3.lock.synctest.mysql.UserUpdateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,9 +24,9 @@ public class MysqlController {
     @Autowired
     private MyJdbcService myJdbcService;
     @Autowired
-    private UserService userService;
+    private UserSelectService userSelectService;
     @Autowired
-    private User2Service userService2;
+    private UserUpdateService userUpdateService;
 
     public void updateMethod(int i) throws SQLException {
         System.out.println(i+"------------updateMethod-------start---------");
@@ -47,12 +45,7 @@ public class MysqlController {
     }
     @PostMapping("/updateUser")
     public String updateUser(@RequestBody  User user) {
-
-        userService2.updateUser(user);
-
-        User u=userService2.selectUser();
-
-        System.out.println("user:"+u.toString());
+        userUpdateService.updateUser(user);
         System.out.println("----------------------end----------------------");
         return "ok";
     }
@@ -60,19 +53,15 @@ public class MysqlController {
     @PostMapping("/addUser")
     @Transactional(rollbackFor = Exception.class)
     public String addUser(@RequestBody  User user) {
-        userService2.addUser(user);
+        userUpdateService.addUser(user);
         System.out.println("----------------------end----------------------");
         return "ok";
     }
 
     @GetMapping("/selectUser")
-    public void selectUser() {
-        System.out.println("当前user:"+userService2.selectUser().toString());
-        SynchronizedExample sy=new SyncClass();
-        sy.setExample(userService2);
-        sy.runMyMethod();
-        sy.setExample(userService);
-        sy.runMyMethod();
-        System.out.println("selectUser============end");
+    public User selectUser() {
+        System.out.println("selectUser============");
+        return userSelectService.selectUser();
+
     }
 }

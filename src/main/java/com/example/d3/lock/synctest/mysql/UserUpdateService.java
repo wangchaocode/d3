@@ -19,7 +19,7 @@ import java.util.Random;
  */
 @Slf4j
 @Service
-public class User2Service extends SynchronizedExample {
+public class UserUpdateService extends SynchronizedExample {
     @Autowired
     private UserMapper userMapper;
 
@@ -28,18 +28,17 @@ public class User2Service extends SynchronizedExample {
         System.out.println("updateUser开始事务....u:"+u.toString());
 
         int i=userMapper.updateUser(u);
-
-        User u2=selectUser();
-        System.out.println("user2 ："+u2.toString());
-        if (u.getAge()<0){
-            int m = 1/0;
-        }
+        System.out.println("updateUser："+u.toString());
         try {
-            Thread.sleep(2000);
+            Thread.sleep(10000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println("更新事务完成："+u.toString());
+        System.out.println("sleep 10s："+u.toString());
+        if (u.getAge()<0){
+            int m = 1/0;
+        }
+
         return i;
     }
 
@@ -52,12 +51,6 @@ public class User2Service extends SynchronizedExample {
         log.info("add--------j--------",j);
 
     }
-
-    @Transactional(rollbackFor = Exception.class)
-    public User selectUser(){
-        return userMapper.selectUser();
-    }
-
     /**
      * 这里我要进行更新数据
      * @param i

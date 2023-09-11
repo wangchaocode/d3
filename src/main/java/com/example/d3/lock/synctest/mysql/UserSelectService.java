@@ -17,10 +17,12 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Slf4j
 @Service
-public class UserService  extends SynchronizedExample {
+public class UserSelectService  extends SynchronizedExample {
     @Autowired
     private UserMapper userMapper;
-    @Transactional(rollbackFor = Exception.class,isolation = Isolation.READ_UNCOMMITTED)
+    @Transactional(rollbackFor = Exception.class
+            ,isolation = Isolation.READ_COMMITTED
+    )
     public User selectUser(){
         System.out.println("进入查询事务...");
         User u=userMapper.selectUser();

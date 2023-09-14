@@ -1,0 +1,7 @@
+class=com.example.d3.exercise.domain.Test
+method=show
+property=id
+property=name
+property=age
+property=className
+name=zhangSan

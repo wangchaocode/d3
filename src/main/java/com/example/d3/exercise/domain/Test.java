@@ -1,5 +1,7 @@
 package com.example.d3.exercise.domain;
 
+import lombok.Data;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -9,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
  * @vVersion 1.0
  */
 @Slf4j
+@ToString
+@Data
 public class Test {
     public static void main(String[] args) {
         log.trace("trace 日志.....");

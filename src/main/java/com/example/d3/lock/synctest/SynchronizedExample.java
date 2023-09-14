@@ -38,7 +38,6 @@ public abstract  class SynchronizedExample {
 
 
     public static void setExample(SynchronizedExample example) {
-        System.out.println("now class is :"+example.getClass().getName());
         SynchronizedExample.example = example;
     }
 

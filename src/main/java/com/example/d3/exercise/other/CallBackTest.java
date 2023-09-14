@@ -1,14 +1,13 @@
-package com.example.d3.exercise;
+package com.example.d3.exercise.other;
 
 import lombok.Data;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.lang.reflect.Array;
 import java.time.*;
 import java.util.Arrays;
-import javax.swing.*;
+
 /**
  * @author wangchao
  * @date 2023/8/15 10:06:53

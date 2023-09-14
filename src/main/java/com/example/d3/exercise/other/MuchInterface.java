@@ -1,4 +1,4 @@
-package com.example.d3.exercise;
+package com.example.d3.exercise.other;
 
 /**
  * @author wangchao
@@ -26,7 +26,7 @@ public class MuchInterface {
         // 默认接口方法，调用实现类的方法实现，类似插槽。
         default void fighting(){
             sayHi();
-            System.out.println("I am fighting with animals");
+            System.out.println("I am fighting with animals 2");
             runOneStep();
             sayNo();
 

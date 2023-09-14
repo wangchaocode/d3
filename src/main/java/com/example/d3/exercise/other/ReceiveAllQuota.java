@@ -1,4 +1,4 @@
-package com.example.d3.exercise;
+package com.example.d3.exercise.other;
 
 /**
  * @author wangchao

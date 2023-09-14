@@ -4,17 +4,23 @@ import com.example.d3.exercise.config.domain.Pig;
 import com.example.d3.exercise.config.domain.Sheep;
 import com.example.d3.exercise.config.domain.Tom;
 import com.example.d3.exercise.domain.UserEntity;
+import com.example.d3.exercise.domain.mq.MqCustomer;
+import com.example.d3.exercise.domain.mq.MqProducer;
 import com.example.d3.exercise.service.IRunQuotaService;
 import com.example.d3.exercise.service.eventpush.EventSend;
 import com.example.d3.exercise.service.eventpush.LoginSuccessEvent;
+import com.example.d3.lock.synctest.SynchronizedExample;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Primary;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.thymeleaf.util.StringUtils;
 import redis.clients.jedis.JedisCluster;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -42,6 +48,13 @@ public class HelloController {
     EventSend eventSend;
     @Autowired
     JedisCluster jedisCluster;
+
+    @Autowired
+    @Qualifier(value="mqCustomer")
+    private SynchronizedExample synchronizedExample;
+
+    @Autowired
+    private MqProducer mqProducer;
     @GetMapping("h")
     public String getInfos(){
         try {
@@ -88,4 +101,20 @@ public class HelloController {
         map.put("jedisCluster:"+key,StringUtils.isEmpty(key)?jedisCluster.get("*"):jedisCluster.get(key));
         return map;
     }
+
+    @GetMapping("mqAddUser")
+    public void mqAddUser(){
+        synchronizedExample.setExample(new MqCustomer());
+        synchronizedExample.runMyMethod();
+    }
+
+    @GetMapping("setUser")
+    public void setUser(int num) throws IOException {
+        synchronizedExample.setExample(new MqProducer());
+        for(int i=0;i<num/5;i++){
+            synchronizedExample.runMyMethod();
+        }
+
+    }
+
 }

@@ -1,6 +1,5 @@
 package com.example.d3.exercise.service.impl;
 
-import com.example.d3.exercise.ObserverClass;
 import com.example.d3.exercise.domain.ParentQuota;
 import com.example.d3.exercise.service.IRunQuotaService;
 import lombok.extern.slf4j.Slf4j;
@@ -11,9 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Set;
 
 /**

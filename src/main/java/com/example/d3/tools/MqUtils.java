@@ -17,7 +17,13 @@ import java.util.concurrent.TimeoutException;
 public class MqUtils {
 
     public static Channel channel;
-    public static final String DEFAULT_QUEUE_NAME="default_queue";
+    public static final String DEFAULT_QUEUE_NAME="ACK_QUEUE_NAME_persist2";
+
+
+    public static final String DEFAULT_EXCHANGE_NAME_FANOUT="FANOUT_ex";
+    public static final String DEFAULT_EXCHANGE_NAME_DIRECT="DIRECT_ex";
+    public static final String DEFAULT_EXCHANGE_NAME_TOPIC="TOPIC_ex";
+    public static final String DEFAULT_EXCHANGE_NAME_HEADER="HEADER_ex";
 
     public static Channel getConnection(){
         if (null ==channel|| !channel.isOpen()){

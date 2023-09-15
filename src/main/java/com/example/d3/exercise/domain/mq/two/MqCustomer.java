@@ -1,4 +1,4 @@
-package com.example.d3.exercise.domain.mq;
+package com.example.d3.exercise.domain.mq.two;
 
 import com.example.d3.exercise.config.domain.User;
 import com.example.d3.lock.synctest.SynchronizedExample;
@@ -7,10 +7,8 @@ import com.example.d3.tools.MqUtils;
 import com.rabbitmq.client.Channel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.Random;
 
 /**
  * @author wangchao

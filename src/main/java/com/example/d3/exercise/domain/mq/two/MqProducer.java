@@ -1,4 +1,4 @@
-package com.example.d3.exercise.domain.mq;
+package com.example.d3.exercise.domain.mq.two;
 
 import com.example.d3.lock.synctest.SynchronizedExample;
 import com.example.d3.tools.MqUtils;
@@ -11,6 +11,7 @@ import java.util.Scanner;
 /**
  * @author wangchao
  * @Description: 生产者
+ * 多线程跑
  * @date 2023/9/14 10:42
  * @vVersion 1.0
  */

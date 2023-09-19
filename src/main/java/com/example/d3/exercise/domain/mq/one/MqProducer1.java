@@ -1,7 +1,9 @@
 package com.example.d3.exercise.domain.mq.one;
 
+import com.example.d3.exercise.domain.mq.ExchangeNum;
 import com.example.d3.lock.synctest.SynchronizedExample;
 import com.example.d3.tools.MqUtils;
+import com.rabbitmq.client.BuiltinExchangeType;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.ConfirmCallback;
 import com.rabbitmq.client.MessageProperties;
@@ -10,6 +12,8 @@ import org.springframework.stereotype.Component;
 import javax.security.auth.callback.ConfirmationCallback;
 import java.io.IOException;
 import java.time.Instant;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.concurrent.ConcurrentNavigableMap;
 import java.util.concurrent.ConcurrentSkipListMap;
@@ -20,7 +24,7 @@ import java.util.concurrent.ConcurrentSkipListMap;
  * @date 2023/9/14 10:42
  * @vVersion 1.0
  */
-public class MqProducer1 {
+public class MqProducer1 extends MqParent{
     private static Channel channel=MqUtils.getConnection();
     private static boolean persistFlag=false;
     /**
@@ -29,9 +33,63 @@ public class MqProducer1 {
     private static boolean beSurePublishFlag=false;
     private static boolean beSureBatchFlag=false;
     private static boolean beSureSyncFlag=false;
+    private static boolean changeFlag=false;
 
-    public static void main(String[] args) throws IOException{
 
+    public static void main(String[] args) throws Exception{
+//        testPUblish();
+
+//        fanoutText();
+
+//        directText();
+
+        setModle("t");
+        channel.confirmSelect();
+        init2();
+        consumeDirect();
+    }
+
+    private static void consumeDirect() throws Exception{
+        String[] arr=null;
+        arr=new String[]{"info","error","debug","warn","drop"};
+        if (getExchangeType().contains("topic")){
+            arr=new String[]{"quick.orange.rabbit","lazy.orange.elephant",
+                    "quick.orange.fox","lazy.brown.fox"};
+        }
+        for (String s:arr){
+            String msg=s+"消息";
+            channel.basicPublish(getExchangeName(),s,null,
+                    s.getBytes("UTF-8"));
+            channel.waitForConfirms();
+            System.out.println("生产者消息发送完成:"+s);
+        }
+
+
+    }
+
+    private static void directText() {
+        changeFlag=true;
+    }
+
+    private static void fanoutText() throws IOException {
+        changeFlag=true;
+
+        init2();
+        consume();
+//        consume();
+    }
+
+    private static void init2() throws IOException {
+
+        if(changeFlag){
+            System.out.println("交换机声明："+getExchangeName()+","+getExchangeType());
+            channel.exchangeDeclare(getExchangeName(),getExchangeType());
+        }
+
+
+    }
+
+    private static void testPUblish() throws IOException {
         initFlag(true,true,false,true);
         /**
          * 平常 1563
@@ -52,10 +110,17 @@ public class MqProducer1 {
         Scanner scanner=new Scanner(System.in);
         while (scanner.hasNext()){
             String message=scanner.next();
-            channel.basicPublish("",MqUtils.DEFAULT_QUEUE_NAME,(persistFlag?
+            channel.basicPublish(getExchange(),getQ(),(persistFlag?
                     MessageProperties.PERSISTENT_TEXT_PLAIN:null),message.getBytes());
             System.out.println("消息发送完毕");
         }
+    }
+
+    private static String getExchange() {
+       return changeFlag? getExchangeName():"";
+    }
+    private static String getQ() {
+        return changeFlag? "":MqUtils.DEFAULT_QUEUE_NAME;
     }
 
     /**
@@ -138,6 +203,7 @@ public class MqProducer1 {
         }
         System.out.println("时间："+(Instant.now().toEpochMilli()-now.toEpochMilli()) );
     }
+
     /**
      * 开启各种组合开关
      * @param pFlag
@@ -146,8 +212,7 @@ public class MqProducer1 {
      * @param bss
      */
     private static void initFlag(boolean pFlag,boolean bsp
-            ,boolean bsb,
-                                 boolean bss) {
+            ,boolean bsb, boolean bss) {
         persistFlag=pFlag;
         beSurePublishFlag=bsp;
         beSureBatchFlag=bsb;
@@ -157,13 +222,14 @@ public class MqProducer1 {
      * 默认
      * @throws IOException
      */
-    static void init() throws IOException {
+    public static void init() throws IOException {
         channel.queueDeclare(getQName(),persistFlag,false,false,null);
         if(beSurePublishFlag){
             channel.confirmSelect();
             System.out.println("开启确认发布");
         }
     }
+
     private static String getQName() {
         return beSurePublishFlag?MqUtils.RANDOM_QUEUE_NAME:MqUtils.DEFAULT_QUEUE_NAME;
     }

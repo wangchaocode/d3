@@ -5,7 +5,6 @@ import com.example.d3.tools.MqUtils;
 import com.rabbitmq.client.Channel;
 
 import java.io.IOException;
-import java.util.UUID;
 
 /**
  * @author wangchao
@@ -14,19 +13,19 @@ import java.util.UUID;
  * @date 2023/9/14 10:42
  * @vVersion 1.0
  */
-public class MqCustomer1 extends MqParent {
+public class MqCustomer3 extends MqParent {
 
 
     private static String qName="";
 
     public static void main(String[] args) throws IOException{
         setModle("t");
-        String[] arr= new String[]{"warn"};
+        String[] arr=new String[]{"info","error","debug"};
         if(getExchangeType().contains("topic")){
-            arr =new String[]{"*.*.fox"};
+            arr =new String[]{"*.*.rabbit"};
         }
-         qName=init(MqUtils.getConnection(),true
-                 ,arr, getRamdomQ());
+        qName=init(MqUtils.getConnection(),true
+                ,arr,getRamdomQ());
         System.out.println("qName:"+qName);
         consume(false,false);
     }
@@ -43,7 +42,7 @@ public class MqCustomer1 extends MqParent {
     public static void consume(boolean handMovement,boolean beSure) throws IOException {
         Channel channel=MqUtils.getConnection();
         System.out.println("c2等待接收消息...");
-
+//        SleepUtils.sleep(1);
         channel.basicConsume(qName,!handMovement,
                 (s, delivery) -> {
                     String msg=new String(delivery.getBody());

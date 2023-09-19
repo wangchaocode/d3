@@ -21,7 +21,9 @@ public class MqUtils {
     public static final String DEFAULT_QUEUE_NAME=
             "ACK_QUEUE_NAME_persist2";
     public static final String RANDOM_QUEUE_NAME=UUID.randomUUID().toString();
-
+    /**
+     * 交换机
+     */
     public static final String DEFAULT_EXCHANGE_NAME_FANOUT="FANOUT_ex";
     public static final String DEFAULT_EXCHANGE_NAME_DIRECT="DIRECT_ex";
     public static final String DEFAULT_EXCHANGE_NAME_TOPIC="TOPIC_ex";

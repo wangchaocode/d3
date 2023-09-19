@@ -6,6 +6,7 @@ import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 
 import java.io.IOException;
+import java.util.UUID;
 import java.util.concurrent.TimeoutException;
 
 /**
@@ -17,8 +18,9 @@ import java.util.concurrent.TimeoutException;
 public class MqUtils {
 
     public static Channel channel;
-    public static final String DEFAULT_QUEUE_NAME="ACK_QUEUE_NAME_persist2";
-
+    public static final String DEFAULT_QUEUE_NAME=
+            "ACK_QUEUE_NAME_persist2";
+    public static final String RANDOM_QUEUE_NAME=UUID.randomUUID().toString();
 
     public static final String DEFAULT_EXCHANGE_NAME_FANOUT="FANOUT_ex";
     public static final String DEFAULT_EXCHANGE_NAME_DIRECT="DIRECT_ex";

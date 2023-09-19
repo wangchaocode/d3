@@ -21,7 +21,7 @@ import java.io.IOException;
 public class MqCustomer1  {
     public static void main(String[] args) throws IOException{
         //
-            consume(false);
+            consume(false,true);
     }
 
     /**
@@ -29,7 +29,7 @@ public class MqCustomer1  {
      * @throws IOException
      * @param handMovement 手动应答标记
      */
-    public static void consume(boolean handMovement) throws IOException {
+    public static void consume(boolean handMovement,boolean beSure) throws IOException {
         Channel channel=MqUtils.getConnection();
         System.out.println("c1等待接收消息--等待1s");
 //        SleepUtils.sleep(1);
@@ -40,6 +40,15 @@ public class MqCustomer1  {
                     if(handMovement){
                         System.out.println("设置应答模式");
                         channel.basicAck(delivery.getEnvelope().getDeliveryTag(),!handMovement);
+                    }
+                    if(beSure){
+                        try {
+                            if (channel.waitForConfirms()){
+                                System.out.println("确认成功");
+                            }
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
                 },
                 (cancel

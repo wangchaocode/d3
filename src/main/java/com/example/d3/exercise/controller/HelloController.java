@@ -113,7 +113,6 @@ public class HelloController {
         for(int i=0;i<num/5;i++){
             synchronizedExample.runMyMethod();
         }
-
     }
 
 }

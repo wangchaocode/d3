@@ -43,10 +43,16 @@ spring:
         max-active: 20
         max-idle: 0
         max-wait: -1
+  #host:47.97.63.174
+      #user:admin
+      #pwd:wcMq@88999
+  rabbitmq:
+    host: 47.97.63.174
+    username: admin
+    password: wcMq@88999
 
 #指定mapper映射文件位置
 mybatis:
   mapper-locations: classpath:/mapper/*.xml
   configuration:
     map-underscore-to-camel-case: true
-

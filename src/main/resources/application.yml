@@ -50,7 +50,8 @@ spring:
     host: 47.97.63.174
     username: admin
     password: wcMq@88999
-
+    publisher-confirm-type: correlated
+    publisher-returns: true
 #指定mapper映射文件位置
 mybatis:
   mapper-locations: classpath:/mapper/*.xml

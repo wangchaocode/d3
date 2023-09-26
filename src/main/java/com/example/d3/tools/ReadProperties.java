@@ -1,6 +1,8 @@
 package com.example.d3.tools;
 
 import com.example.d3.exercise.domain.mq.RabbitMQConfig;
+import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.ProducerConfig;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -38,6 +40,11 @@ public class ReadProperties {
         Properties p=getFiles("rabbitmq.properties");
         return new RabbitMQConfig(p.getProperty("host"),p.getProperty("user"),p.getProperty("pwd"),
                 Integer.parseInt(p.getProperty("port")));
+    }
+    static KafkaProducer getKafkaProducer(){
+        Properties p=getFiles("kafka.properties");
+        KafkaProducer<String,String> kafkaProducer=new KafkaProducer<String, String>(p);
+        return kafkaProducer;
     }
 
     public static void main(String[] args) {

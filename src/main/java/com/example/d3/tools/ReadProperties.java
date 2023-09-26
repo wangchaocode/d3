@@ -36,7 +36,8 @@ public class ReadProperties {
     }
     static RabbitMQConfig getRabbitMqConf(){
         Properties p=getFiles("rabbitmq.properties");
-        return new RabbitMQConfig(p.getProperty("host"),p.getProperty("user"),p.getProperty("pwd"));
+        return new RabbitMQConfig(p.getProperty("host"),p.getProperty("user"),p.getProperty("pwd"),
+                Integer.parseInt(p.getProperty("port")));
     }
 
     public static void main(String[] args) {

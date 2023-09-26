@@ -20,4 +20,6 @@ public class RabbitMQConfig {
     private String host;
     private String user;
     private String pwd;
+    private Integer port;
+
 }

@@ -33,8 +33,13 @@ public class MqUtils {
 
     public static final String NORMAL_EXCHANGE_NAME="normal_exchange";
     public static final String DEAD_EXCHANGE = "dead_exchange";
-
+    public static final String LAZY_EXCHANGE_NAME="mirror_lazy_exchange";
+    public static final String FED_EXCHANGE_NAME="fed_exchange";
     public static final String  DEAD_PRE="x-dead-letter-";
+    public static final String  ROUTE_KEY_ZHANGSAN= "zhangsan";
+
+    public static final String LAZY_Q_NAME="lazy_exchange";
+
 
     public static Map<String,Object> getInitMap(String exName,String routeKey,int testMaxNum, int ttl){
         Map<String,Object> pm=new HashMap<>();
@@ -57,6 +62,7 @@ public class MqUtils {
         ConnectionFactory factory=new ConnectionFactory();
         RabbitMQConfig rb =ReadProperties.getRabbitMqConf();
         factory.setHost(rb.getHost());
+        factory.setPort(rb.getPort());
         factory.setUsername(rb.getUser());
         factory.setPassword(rb.getPwd());
         Channel channel=null;

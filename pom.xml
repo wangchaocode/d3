@@ -148,6 +148,12 @@
             <artifactId>kafka-clients</artifactId>
             <version>3.0.0</version>
         </dependency>
+        <!--集成springboot的kafka-->
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+        </dependency>
+
     </dependencies>
 
     <modules>

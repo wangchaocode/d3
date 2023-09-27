@@ -52,6 +52,11 @@ spring:
     password: wcMq@88999
     publisher-confirm-type: correlated
     publisher-returns: true
+  kafka:
+    bootstrap-servers: hadoop101:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
 #指定mapper映射文件位置
 mybatis:
   mapper-locations: classpath:/mapper/*.xml
